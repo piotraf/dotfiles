@@ -1,0 +1,19 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+# User specific aliases and functions
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+        export TERM='xterm-256color'
+else
+        export TERM='xterm-color'
+fi
+# Start ssh-agent if it's not already running
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval $(ssh-agent -s)
+    ssh-add ${HOME}/.ssh/<NYKEY1> ${HOME}/.ssh/<NYKEY2> 
+fi
+export HISTSIZE=5000
+export HISTFILESIZE=10000
