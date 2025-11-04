@@ -1,0 +1,89 @@
+# -------------------------------------------
+# Basic shell behavior
+# -------------------------------------------
+unsetopt BANG_HIST
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt AUTO_CD
+setopt EXTENDED_GLOB
+setopt CORRECT
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+setopt NO_CLOBBER
+
+alias rm='nocorrect rm'
+
+# -------------------------------------------
+# History configuration
+# -------------------------------------------
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+
+# -------------------------------------------
+# PATH
+# -------------------------------------------
+export PATH="${HOME}/.venvs/ansible-py313/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
+# -------------------------------------------
+# CLI aliases - productivity
+# -------------------------------------------
+alias ans='ansible'
+alias apb='ansible-playbook'
+alias alint='ansible-lint'
+alias yml='yamllint'
+alias ll='ls -lh'
+alias la='ls -lha'
+alias grep='grep --color=auto'
+alias df='df -h'
+alias du='du -h'
+alias less='less -R'
+alias cls='clear'
+alias c='clear'
+
+# Global aliases
+alias -g G='| grep'
+alias -g L='| less'
+alias -g H='| head'
+alias -g T='| tail'
+
+# -------------------------------------------
+# Completion engine
+# -------------------------------------------
+autoload -Uz compinit
+zmodload zsh/complist
+compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# -------------------------------------------
+# Prompt
+# -------------------------------------------
+autoload -Uz vcs_info
+autoload -Uz colors && colors
+setopt prompt_subst
+zstyle ':vcs_info:git:*' formats '(%b)'
+PROMPT='%F{cyan}%n@%m%f %F{yellow}%~%f ${vcs_info_msg_0_}%# '
+RPROMPT='%F{green}%*%f'
+
+# Single precmd: run vcs_info and set the terminal title
+precmd() {
+  vcs_info
+  print -Pn "\e]0;%n@%m: %~\a"
+}
+
+# -------------------------------------------
+# Optional QoL enhancements
+# -------------------------------------------
+unsetopt BEEP
+if [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+if [[ -r /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  # Keep this LAST
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
