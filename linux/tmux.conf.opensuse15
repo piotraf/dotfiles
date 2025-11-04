@@ -1,0 +1,26 @@
+# Basic appearance
+set -g status on
+set -g status-interval 5
+set -g status-justify "centre"
+set -g status-left-length 60
+set -g status-right-length 90
+
+# Colors (vim-airline style)
+set -g status-bg colour234
+set -g status-fg colour248
+
+# Left and Right
+set -g status-left "#[fg=colour33,bg=colour234,bold] #H #[default]"
+set -g status-right "#[fg=colour248,bg=colour234] %d-%b-%Y #[fg=colour39] %H:%M #[fg=colour202] #h"
+
+# Active and inactive windows
+setw -g window-status-current-format "#[fg=colour232,bg=colour45] #I:#W#F "
+setw -g window-status-current-style "bold"
+setw -g window-status-format "#[fg=colour244,bg=colour234] #I:#W#F "
+
+# Pane borders
+set -g pane-border-style fg=colour238
+set -g pane-active-border-style fg=colour39
+
+# Message style
+set -g message-style bg=colour16,fg=colour166
