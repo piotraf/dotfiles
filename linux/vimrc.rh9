@@ -1,0 +1,103 @@
+execute pathogen#infect()
+set background=dark
+" set termguicolors
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+" colorscheme solarized
+" colo darkblue
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 nu expandtab cursorline
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf8,prc
+set termencoding=utf-8
+" not sure
+let g:airline#extensions#tabline#enabled=1
+let g:airline_powerline_fonts=1
+" Configuration NERDTree
+map <F5> :NERDTreeToggle<CR>
+
+" Configuration floaterm
+let g:floaterm_keymap_toggle = '<F12>'
+let g:floaterm_width = 0.9
+let g:floaterm_height = 0.9
+
+" Configuration Vim.FZF
+let g:fzf_preview_window = 'right:50%'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
+" not sure end
+set nocompatible
+if has('filetype')
+  filetype indent plugin on
+endif
+if has('syntax')
+  syntax on
+endif
+set hidden
+set wildmenu
+set showcmd
+set hlsearch
+set ignorecase
+set smartcase
+set backspace=indent,eol,start
+set autoindent
+set nostartofline
+set ruler
+set laststatus=2
+set confirm
+set visualbell
+set t_vb=
+" if has('mouse')
+"  set mouse=a
+" endif
+set cmdheight=2
+set number
+set notimeout ttimeout ttimeoutlen=200
+set pastetoggle=<F11>
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+map Y y$
+nnoremap <C-L> :nohl<CR><C-L>
+set linespace=0
+" Some funky status bar code its seems
+" https://stackoverflow.com/questions/9065941/how-can-i-change-vim-status-line-colour
+set laststatus=2            " set the bottom status bar
+
+function! ModifiedColor()
+    if &mod == 1
+        hi statusline guibg=White ctermfg=8 guifg=OrangeRed4 ctermbg=15
+    else
+        hi statusline guibg=White ctermfg=8 guifg=DarkSlateGray ctermbg=15
+    endif
+endfunction
+
+au InsertLeave,InsertEnter,BufWritePost   * call ModifiedColor()
+" default the statusline when entering Vim
+hi statusline guibg=White ctermfg=8 guifg=DarkSlateGray ctermbg=15
+
+" Formats the statusline
+set statusline=%f                           " file name
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%y      "filetype
+set statusline+=%h      "help file flag
+set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}]
+"modified flag
+
+set statusline+=%r      "read only flag
+
+set statusline+=\ %=                        " align left
+set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ Col:%c                    " current column
+set statusline+=\ Buf:%n                    " Buffer number
+set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
+" Optional: pick visible separators that exist in stock fonts
+" let g:airline_left_sep  = '>'
+" let g:airline_right_sep = '<'
+" if !exists('g:airline_symbols')
+"  let g:airline_symbols = {}
+" endif
+" let g:airline_symbols.linenr = '#'
