@@ -1,0 +1,71 @@
+" elektra initial
+set nocompatible
+
+" Filetype and syntax
+if has('filetype')
+  filetype indent plugin on
+endif
+if has('syntax')
+  syntax on
+endif
+
+" UI / Editing
+set hidden
+set wildmenu
+set showcmd
+set hlsearch
+set ignorecase
+set smartcase
+set backspace=indent,eol,start
+set autoindent
+set nostartofline
+set ruler
+set laststatus=2
+set confirm
+set visualbell
+set t_vb=
+set cmdheight=2
+set number
+set notimeout ttimeout ttimeoutlen=200
+set pastetoggle=<F11>
+
+" Indentation
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" Mouse support (works well in macOS terminals)
+if has('mouse')
+  set mouse=a
+  set ttymouse=sgr
+endif
+
+" Encoding and display
+set encoding=utf-8
+set termencoding=utf-8
+set fileencodings=utf-8,latin1
+set linebreak           " don't split words when wrapping
+set showmatch           " highlight matching brackets
+
+" Better search
+nnoremap <C-L> :nohl<CR><C-L>
+
+" Yank to end of line
+map Y y$
+
+" Easier window navigation (optional)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Mac-specific: fix Option key meta
+" set macmeta
+
+" Clipboard integration (if you want system clipboard copy/paste)
+if has('clipboard')
+ set clipboard=unnamedplus
+endif
+
+" Optional: faster redraw on large files
+set lazyredraw
